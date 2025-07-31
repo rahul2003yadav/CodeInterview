@@ -8,7 +8,7 @@ import axios from 'axios';
 const app = express();
 const server = http.createServer(app);
 
-const url = `https://realtime-code-editor-awbj.onrender.com`;
+const url = `https://realtime-code-editor-1ruh.onrender.com`;
 const interval = 30000;
 
 function reloadWebsite() {

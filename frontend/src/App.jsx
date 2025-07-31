@@ -5,7 +5,7 @@ import Editor from "@monaco-editor/react";
 import HomePage from "../components/HomePage";
 import EditorPage from "../components/EditorPage";
 
-const socket = io("https://realtime-code-editor-awbj.onrender.com");
+const socket = io("https://realtime-code-editor-1ruh.onrender.com");
 
 const App = () => {
   const [joined, setJoined] = useState(false);
