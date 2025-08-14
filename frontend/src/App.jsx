@@ -7,7 +7,7 @@ import EditorPage from "../components/EditorPage";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://realtime-code-editor-1ruh.onrender.com");
 
 const App = () => {
   const [joined, setJoined] = useState(false);
