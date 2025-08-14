@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import Editor from "@monaco-editor/react";
 import HomePage from "../components/HomePage";
 import EditorPage from "../components/EditorPage";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { ZegoUIKitPrebuilt } from "@zegocloud/zego-uikit-prebuilt";
 
-const socket = io("https://realtime-code-editor-1ruh.onrender.com");
+const socket = io("http://localhost:5000");
 
 const App = () => {
   const [joined, setJoined] = useState(false);
@@ -102,6 +104,26 @@ const App = () => {
     socket.emit("compileCode", { code, roomId, language, version });
   };
 
+  const myMeeting = async (element) => {
+    const appId = 1503717611;
+    const serverSecret = "1f0186045b1e9f9f3bacc848dd5e8cd9";
+    const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(
+      appId,
+      serverSecret,
+      roomId,
+      Date.now().toString(),
+      userName
+    );
+    const zc = ZegoUIKitPrebuilt.create(kitToken);
+    zc.joinRoom({
+      container: element,
+      scenario: {
+        mode: ZegoUIKitPrebuilt.GroupCall,
+      },
+      showScreenSharingButton:false,
+    })
+  }
+
   if (!joined) {
     return (
       <HomePage
@@ -128,6 +150,7 @@ const App = () => {
       handleCodeChange={handleCodeChange}
       runCode={runCode}
       outPut={outPut}
+      meeting={myMeeting}
     />
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Editor from "@monaco-editor/react";
 
 const EditorPage = ({
@@ -14,7 +14,19 @@ const EditorPage = ({
   handleCodeChange,
   runCode,
   outPut,
+  meeting,
 }) => {
+
+
+  const meetingContainer = useRef(null);
+
+  useEffect(() => {
+    if (meeting && meetingContainer.current) {
+      meeting(meetingContainer.current);
+    }
+  }, [meeting]);
+
+
   return (
     <div className="editor-container">
       <div className="sidebar">
@@ -25,23 +37,33 @@ const EditorPage = ({
           </button>
           {copySuccess && <span className="copy-success">{copySuccess}</span>}
         </div>
-        <h3>Users in Room</h3>
-        <ul>
-          {users.map((user, index) => (
-            <li key={index}>{user.slice(0, 8)}...</li>
-          ))}
-        </ul>
         <p className="typing-indicator">{typing}</p>
+        
+        <div className="users">
+          <h3>Users in Room</h3>
+          <ul>
+            {users.map((user, index) => (
+              <li key={index}>{user.slice(0, 8)}...</li>
+            ))}
+          </ul>
+        </div>
 
-        <select className="language-selector" value={language} onChange={handleLanguageChange}>
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="cpp">C++</option>
-        </select>
-        <button className="leave-button" onClick={leaveRoom}>
-          Leave Room
-        </button>
+        <div className="meeting" ref={meetingContainer}/>
+        
+
+        
+        <div className="leave-lang-btn">
+          <select className="language-selector" value={language} onChange={handleLanguageChange}>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+          </select>
+          <button className="leave-button" onClick={leaveRoom}>
+            Leave Room
+          </button>
+        </div>
+        
       </div>
 
       <div className="editor-wrapper">
